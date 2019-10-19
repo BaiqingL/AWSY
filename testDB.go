@@ -35,23 +35,24 @@ func main() {
 	}
 
 	// Take arguments, 0 element is the actual command
-
-	 arguments:= make([]string, len(os.Args))
-
+	var arguments []string
 	if len(os.Args) > 1 {
-		for _, BSSIDs := range os.Args[1:] {
-		arguments = append(arguments, BSSIDs)
-		}
+		arguments = os.Args[1:]
+	} else {
+		fmt.Println("No BSSID given")
+		return
 	}
+
+	fmt.Printf("%v\n", arguments)
 
 	// Initialize the waitgroup
 	var waitgroup sync.WaitGroup
 
 	for _, ids := range arguments {
 		waitgroup.Add(1)
-		go func(val interface{}) {
-	
-			fmt.Println(search(ids, db, &waitgroup))
+		//fmt.Println(ids)
+		go func(val string) {
+			fmt.Println(search(val, db, &waitgroup))
 			
 		}(ids)
 	}
