@@ -52,7 +52,7 @@ func handleConnection(conn net.Conn) {
 func main() {
 
   // Start listening to port 8080 for TCP connections
-  listener, err:= net.Listen("tcp", ":8080")
+  listener, err:= net.Listen("tcp", ":8081")
   if err != nil {
     fmt.Println(err)
     return
