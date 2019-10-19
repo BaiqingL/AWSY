@@ -12,7 +12,7 @@ def getCoordinates(bssid):
 
     try:
         return data['results'][0]['trilat'], data['results'][0]['trilong']
-   except:
+    except:
         print("Invalid BSSID, BSSID not found on WiGLE.net, or too many queries today")
 
 
