@@ -1,31 +1,25 @@
 package main
 
 import (
-	//"bufio"
+	"github.com/prologic/bitcask"
 	"encoding/csv"
 	"fmt"
 	"io"
-	"log"
 	"os"
+	"sync"
 )
 
-// Making it easy to document
-type Entry struct {
-	BSSID	string
-	Latitude string
-	Longitude string
-}
-
-
 func main() {
+
+	// Opens up temporary database
+    db, _ := bitcask.Open("/tmp/db")
+	defer db.Close()
 
 	// Open the file
 	csvfile, _ := os.Open("short.csv")
 
 	// Parse the file
 	r := csv.NewReader(csvfile)
-
-	var entries []String
 	
 	// Iterate through the records
 	for {
@@ -35,14 +29,38 @@ func main() {
 			break
 		}
 
-		// Create a struct to hold values
-		data := Entry {
-			BSSID: record.[0],
-			Latitude: record.[1],
-			Longitude: record.[2],
-		}
+		db.Put([]byte(record[0]),[]byte(record[1]+","+record[2]))
 		
-
-
 	}
+
+	// Take arguments, 0 element is the actual command
+	var arguments []string
+	if len(os.Args) > 1 {
+		arguments = os.Args[1:]
+	} else {
+		fmt.Println("No BSSID given")
+		return
+	}
+
+	fmt.Printf("%v\n", arguments)
+
+	// Initialize the waitgroup
+	var waitgroup sync.WaitGroup
+
+	for _, ids := range arguments {
+		waitgroup.Add(1)
+		//fmt.Println(ids)
+		go func(val string) {
+			fmt.Println(search(val, db, &waitgroup))
+			
+		}(ids)
+	}
+	waitgroup.Wait()
+
+}
+
+func search(BSSID string, db *bitcask.Bitcask, waitgroup *sync.WaitGroup) string {
+	val, _ := db.Get([]byte(BSSID))
+	waitgroup.Done()
+	return BSSID + " " + string(val)
 }
