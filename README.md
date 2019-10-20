@@ -48,7 +48,7 @@ Pyhon packages
 
 API keys
 
-1. Locator.py:
+1. Locator.py
 - `Zillow`
 - `Google`
 2. PyGLE configuration file
