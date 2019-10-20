@@ -1,14 +1,28 @@
 import locateAddress, reverseAddressLookup, wigleLocation
 
-testID = "00FEC82D7B02"
+testID = "305a3aa0da30"
 
-try:
-    (loc_x, loc_y) = wigleLocation.getCoordinates(testID)
-except:
-    print("Operation failed")
+googleAPI = locateAddress.GooglePlaces()
 
-temp = locateAddress.GooglePlaces(loc_x, loc_y)
+#try:
+#    (loc_x, loc_y) = wigleLocation.getCoordinates(testID)
+#except:
+#    (loc_x, loc_y) = temp.get_coordinates(testID)
 
-data = reverseAddressLookup.sendRequest(temp.get_address())
+loc_x, loc_y = 37.54036713, -121.94658661
+zillowAPI = locateAddress.ZillowAPI(loc_x, loc_y)
 
-print(data["current_residents"])
+if(zillowAPI.isHouse()):
+    data = reverseAddressLookup.sendRequest(googleAPI.get_address(loc_x, loc_y))
+
+    for resident in data["current_residents"]:
+        for key, val in resident.items():
+            try:
+                print(key + ": " + val)
+            except:
+                print(key + ": ")
+                if(key == "associated_people"):
+                    print([person["relation"] + ": " + person["name"] for person in val])
+                if(key == "historical_addresses"):
+                    print(["%s, %s %s %s, %s" %(address["street_line_1"], address["city"], address["state_code"], address["postal_code"], address["country_code"]) for address in val])
+        print()

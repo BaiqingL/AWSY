@@ -8,20 +8,44 @@ import re
 
 
 zillowKey = 'X1-ZWz17kv04h00sr_2m43a'
-googleKey = "AIzaSyCdbYjagJu727nxM-h5zsyuOEfhy2BxnMo"
+googleKey = "AIzaSyAjjMSdXTOUeJv1l76lhM4O2ZJoPk-LiUU"
 
 class GooglePlaces(object):
-    def __init__(self, loc_x, loc_y):
-        self.loc_x = loc_x
-        self.loc_y = loc_y
-        self.location = loc_x+","+loc_y
+    def __init__(self):
+        self.loc_x = None
+        self.loc_y = None
+        self.location = None
 
-    def get_address(self):
+    def get_address(self, loc_x, loc_y):
         geolocator = GoogleV3(api_key=googleKey)
-        locations = geolocator.reverse(loc_x + ", " + loc_y)
+        location = str(loc_x)+","+str(loc_y)
+        locations = geolocator.reverse(location)
         address = locations[0].address.split(",")
+        print("Address: ")
         print(address)
+        print()
         return address
+
+    def get_coordinates(self, bssid):
+        endpoint_url = "https://www.googleapis.com/geolocation/v1/geolocate" + "?key=" + googleKey
+        formatted = "".join([bssid[i:i+2] + ":" for i in range(0, len(bssid), 2)])[:-1]
+        print(formatted)
+        headers = {"Content-Type": "application/json"}
+        params = {
+            "considerIp": "false",
+            "wifiAccessPoints": [
+                {
+                    "macAddress":  formatted[:-1] + "d"
+                },
+                {
+                    "macAddress": formatted
+                }
+            ]
+        }
+        results = requests.post(endpoint_url, data = json.dumps(params), headers = headers)
+        results = json.loads(results.content)
+        print(results)
+        return results["location"]["lat"], results["location"]["lng"]
 
 
     def search_places_by_coordinate(self, radius=100):
@@ -65,7 +89,7 @@ class GooglePlaces(object):
 class ZillowAPI(object):
     def __init__(self, loc_x, loc_y):
         geolocator = GoogleV3(api_key=googleKey)
-        locations = geolocator.reverse(loc_x + ", " + loc_y)
+        locations = geolocator.reverse(str(loc_x) + ", " + str(loc_y))
 
         f = locations[0].address.split(",")
         n = re.sub("[^0-9]", "", f[2])
@@ -75,8 +99,9 @@ class ZillowAPI(object):
         self.zillow_data = ZillowWrapper(zillowKey)
 
     def isHouse(self):
+
+        deep_search_response = self.zillow_data.get_deep_search_results(self.address, self.zipcode)
         try:
-            deep_search_response = zillow_data.get_deep_search_results(address,n)
             return True
         except:
             return False
