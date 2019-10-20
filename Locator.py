@@ -7,8 +7,8 @@ import pandas as pd
 import re
 
 
-zillowKey = "your_zillow_api_key"
-googleKey = "your_google_api_key"
+zillowKey = "api_key"
+googleKey = "api_key"
 
 class GooglePlaces(object):
     def __init__(self):
@@ -48,11 +48,12 @@ class GooglePlaces(object):
         return results["location"]["lat"], results["location"]["lng"]
 
 
-    def search_places_by_coordinate(self, radius=100):
+    def search_places_by_coordinate(self,loc_x,loc_y, radius=100):
+        location = str(loc_x)+","+str(loc_y)
         endpoint_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         places = []
         params = {
-            'location': self.location,
+            'location': location,
             'radius': radius,
             'key': googleKey
         }
@@ -68,8 +69,8 @@ class GooglePlaces(object):
             time.sleep(5)
         return places
 
-    def get_points_of_interest(self):
-        places = self.search_places_by_coordinate()
+    def get_points_of_interest(self,loc_x,loc_y):
+        places = self.search_places_by_coordinate(loc_x,loc_y)
         d = {'types': []}
         df = pd.DataFrame(data=d)
         setter =3

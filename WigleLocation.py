@@ -1,3 +1,4 @@
+
 from pygle import network
 
 # You will have to set up your user and password for WiGLE in the pygle configuration file
