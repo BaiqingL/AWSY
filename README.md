@@ -17,12 +17,30 @@ There are four main queries made in AWSY:
 
 ## Usage
 
+First the WiFi card must be put into monitor mode. (The RTL8812AU chipset is most commonly used for these purposes.)
+
+`ip a`
+
+Find your WiFi cards interface
+
+`airmon-ng start [interface]`
+
+This will put the card in monitor mode, it requires sudo permissions.
+
+`airodump-ng -w data --output-format csv [monitor mode interface]`
+
+This will start the capture process, note that it will store it in a csv format. Sudo permissions are required.
+
 `python AWSY.py <bssid>` 
 
 Note that the bssid is given in the form AAAAAAAAAA without any colons. It is not case sensitive.
 
 ## Requirements
 
+Linux software
+- `aircrack-ng`
+
+Pyhon packages
 - `pyzillow`
 - `pandas`
 - `geopy`
