@@ -33,7 +33,7 @@ def run(bssid_raw):
             print()
 
 if(len(sys.argv) > 2):
-    print("Usage: ./AWSY <bssid>")
+    print("Usage: python AWSY.py <bssid>")
 else:
     run(sys.argv[1])
 
