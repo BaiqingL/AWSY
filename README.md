@@ -1,8 +1,7 @@
 # AWSY
-<p align="center">
-  <img src="https://raw.githubusercontent.com/VBQL/AWSY/master/logo.png" alt="Although WiFi is disconnected, you still transmit valueable information"/>
-  
+<p align="center">  
   <b>Are.We.Secure.Yet is a framework that aims to mine data from BSSIDs. </b>
+  <img src="https://raw.githubusercontent.com/VBQL/AWSY/master/logo.png" alt="Although WiFi is disconnected, you still transmit valueable information">
 </p>
 
 ## Overview
