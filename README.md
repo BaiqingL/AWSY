@@ -1,6 +1,8 @@
 # AWSY
 <p align="center">  
   <b>Are.We.Secure.Yet is a framework that aims to collect and mine data from BSSIDs to reaveal what we have forgotten about WiFi security. </b>
+  
+  
   <img src="https://raw.githubusercontent.com/VBQL/AWSY/master/logo.png" alt="Although WiFi is disconnected, you still transmit valueable information">
 </p>
 
