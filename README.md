@@ -46,3 +46,12 @@ Pyhon packages
 - `geopy`
 - `pygle`
 
+API keys
+
+1. Locator.py:
+- `Zillow`
+- `Google`
+2. PyGLE configuration file
+- `WiGLE`
+3. ReverseAddressLookup.py
+- `Ekata`
