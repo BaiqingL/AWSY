@@ -13,7 +13,7 @@ def run(bssid_raw):
     except:
         (loc_x, loc_y) = googleAPI.get_coordinates(bssid)
 
-    loc_x, loc_y = 42.3379368, -71.6097833
+     
 
     zillowAPI = Locator.ZillowAPI(loc_x, loc_y)
 
