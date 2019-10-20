@@ -17,7 +17,7 @@ There are four main queries made in AWSY:
 
 ## Usage
 
-`./python AWSY.py <bssid>` 
+`python AWSY.py <bssid>` 
 
 Note that the bssid is given in the form AAAAAAAAAA without any colons. It is not case sensitive.
 
