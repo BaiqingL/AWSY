@@ -1,4 +1,4 @@
 pyzillow
-panads
+pandas
 geopy
 pygle

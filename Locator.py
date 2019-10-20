@@ -11,12 +11,27 @@ zillowKey = "api_key"
 googleKey = "api_key"
 
 class GooglePlaces(object):
+    """
+    A class to simplify API queries to the Google Maps
+    API.
+    """
+
     def __init__(self):
         self.loc_x = None
         self.loc_y = None
         self.location = None
 
     def get_address(self, loc_x, loc_y):
+        """
+        Takes in the given lattitude and longitude (loc_x and
+        loc_y respectively) and returns a formatted address list.
+
+        loc_x: float
+            The latitude
+        loc_y: float
+            The longitude
+        """
+
         geolocator = GoogleV3(api_key=googleKey)
         location = str(loc_x)+","+str(loc_y)
         locations = geolocator.reverse(location)
@@ -27,6 +42,14 @@ class GooglePlaces(object):
         return address
 
     def get_coordinates(self, bssid):
+        """
+        Alternative method to get coordinates from BSSID
+        that uses the Google Maps API instead of WiGLE.net.
+
+        bssid: str
+            The BSSID
+        """
+
         endpoint_url = "https://www.googleapis.com/geolocation/v1/geolocate" + "?key=" + googleKey
         formatted = "".join([bssid[i:i+2] + ":" for i in range(0, len(bssid), 2)])[:-1]
         print(formatted)
@@ -48,7 +71,18 @@ class GooglePlaces(object):
         return results["location"]["lat"], results["location"]["lng"]
 
 
-    def search_places_by_coordinate(self,loc_x,loc_y, radius=100):
+    def search_places_by_coordinate(self, loc_x,loc_y, radius=100):
+        """
+        Method that returns all points of interest near the given coordinates.
+
+        loc_x: float
+            The latitude
+        loc_y: float
+            The longitude
+        radius: int
+            The signal radius
+        """
+
         location = str(loc_x)+","+str(loc_y)
         endpoint_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         places = []
@@ -69,7 +103,17 @@ class GooglePlaces(object):
             time.sleep(5)
         return places
 
-    def get_points_of_interest(self,loc_x,loc_y):
+    def get_points_of_interest(self,loc_x, loc_y):
+        """
+        Method that returns the top three points of interest from search_places_by_coordinate()
+        in a pandas dataframe.
+
+        loc_x: float
+            The latitude
+        loc_y: float
+            The longitude
+        """
+
         places = self.search_places_by_coordinate(loc_x,loc_y)
         d = {'types': []}
         df = pd.DataFrame(data=d)
@@ -88,18 +132,41 @@ class GooglePlaces(object):
         return df
 
 class ZillowAPI(object):
+    """
+    A class to handle the ZillowAPI queries.
+
+    """
+
     def __init__(self, loc_x, loc_y):
+        """
+        Constructor method.
+
+        loc_x: float
+            The latitude
+        loc_y: float
+            The longitude
+        """
+
+        # Used to get the address, could be replaced with GoogleAPI class
         geolocator = GoogleV3(api_key=googleKey)
         locations = geolocator.reverse(str(loc_x) + ", " + str(loc_y))
 
+        # Format address for query to Zillow
         f = locations[0].address.split(",")
         n = re.sub("[^0-9]", "", f[2])
 
         self.address = f[0] +"," + f[1]
         self.zipcode = n
+
         self.zillow_data = ZillowWrapper(zillowKey)
 
     def isHouse(self):
+        """
+        Method that uses a try/catch block to determine if the coordinates (loc_x, loc_y)
+        passed into the class is a household.
+
+        Returns a boolean value.
+        """
 
         deep_search_response = self.zillow_data.get_deep_search_results(self.address, self.zipcode)
         try:
@@ -108,6 +175,11 @@ class ZillowAPI(object):
             return False
 
     def getResults(self):
+        """
+        Method that returns a dict() of data about the house at the coordinates of loc_x, loc_y.
+
+        """
+
         deep_search_response = self.zillow_data.get_deep_search_results(self.address, self.zipcode)
         result = GetDeepSearchResults(deep_search_response)
         return result

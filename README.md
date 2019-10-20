@@ -12,10 +12,10 @@ AWSY aims to reveal the insecurity of public space. It uses captured BSSIDs and 
 
 There are four main queries made in AWSY:
 
-1. WiGLE.net/GoogleAPI can usually determine the **latitude and longitude** from a given BSSID.
+1. WiGLE.net/GoogleAPI can determine the **latitude and longitude** from a given BSSID.
 2. GoogleAPI can use the latitude and longitude data to determine the **address** of the coordinates.
 3. ZillowAPI can use the **address** to determine whether or not the property is a household.
-4. EkataAPI can use the **address** to mine the names, historical addresses, phone numbers, associated people, and more about the residents.
+4. EkataAPI can use the **address** to mine the **names, historical addresses, phone numbers, associated people, and more about the residents.**
 
 ## Usage
 
@@ -35,14 +35,14 @@ This will start the capture process, note that it will store it in a csv format.
 
 `python AWSY.py <bssid>` 
 
-Note that the bssid is given in the form AAAAAAAAAA without any colons. It is not case sensitive.
+Note that the bssid is given in the form `AAAAAAAAAA` without any colons. It is not case sensitive.
 
 ## Requirements
 
 Linux software
 - `aircrack-ng`
 
-Pyhon packages
+Python packages
 - `pyzillow`
 - `pandas`
 - `geopy`

@@ -1,10 +1,18 @@
 import requests
 import json
 
-API_KEY = "api_key"
+ekataKey = "api_key"
 
-# Address format (list):  ["NUM STREET", "CITY", "STATE ZIP", "COUNTRY"]
 def sendRequest(address):
+    """
+    Queries the given address to the Ekata api and returns
+    the json data as a dict().
+
+    Note that 'address' is a list given in the following format:
+    ["NUM STREET", "CITY", "STATE ZIP", "COUNTRY"]
+
+    """
+
     street = address[0]
     city = address[1]
     state, zipcode = address[2].split()
@@ -12,7 +20,7 @@ def sendRequest(address):
 
 
     parameters = {
-        "api_key": API_KEY,
+        "api_key": ekataKey,
         "city": city,
         "country_code": country,
         "postal_code": zipcode,

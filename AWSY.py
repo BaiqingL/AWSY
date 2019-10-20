@@ -3,6 +3,7 @@ import ReverseAddressLookup
 import WigleLocation
 import sys
 
+# Link together APIs and print results
 def run(bssid_raw):
     bssid = bssid_raw
 
@@ -17,8 +18,8 @@ def run(bssid_raw):
     zillowAPI = Locator.ZillowAPI(loc_x, loc_y)
 
     if(zillowAPI.isHouse()):
-        adress = googleAPI.get_address(loc_x, loc_y)
-        data = ReverseAddressLookup.sendRequest(adress)
+        address = googleAPI.get_address(loc_x, loc_y)
+        data = ReverseAddressLookup.sendRequest(address)
 
         for resident in data["current_residents"]:
             for key, val in resident.items():

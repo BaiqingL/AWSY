@@ -12,7 +12,7 @@ class entry:
 entries = []
 
 
-""" 
+"""
 Data formatted as id,BSSID,EMPTY,EMPTY,LAT,LONG,openbmap,num,date,date.
 Only need three data points, so data needs to be isolated
 """
