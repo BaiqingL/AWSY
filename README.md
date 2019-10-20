@@ -2,7 +2,7 @@
 <p align="center">  
   <b>Are.We.Secure.Yet collects and mines data from BSSIDs to reveal what we have forgotten about WiFi security. </b>
   <img src="https://raw.githubusercontent.com/VBQL/AWSY/master/logo.png" alt="Although WiFi is disconnected, you still transmit valueable information">
-  <b>HackUMass VII Best Security Hack winning project</b>
+  <b>HackUMass VII Best Security Hack!</b>
 </p>
 
 ## Overview
