@@ -7,8 +7,8 @@ import pandas as pd
 import re
 
 
-zillowKey = 'X1-ZWz17kv04h00sr_2m43a'
-googleKey = "AIzaSyAjjMSdXTOUeJv1l76lhM4O2ZJoPk-LiUU"
+zillowKey = "your_zillow_api_key"
+googleKey = "your_google_api_key"
 
 class GooglePlaces(object):
     def __init__(self):
