@@ -9,6 +9,7 @@ def getCoordinates(bssid):
     data = network.search(netid=formatted)
 
     print(data)
+    print()
 
     try:
         return data['results'][0]['trilat'], data['results'][0]['trilong']

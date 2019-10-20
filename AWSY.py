@@ -1,28 +1,40 @@
-import locateAddress, reverseAddressLookup, wigleLocation
+import Locator
+import ReverseAddressLookup
+import WigleLocation
+import sys
 
-testID = "305a3aa0da30"
+def run(bssid_raw):
+    bssid = bssid_raw
 
-googleAPI = locateAddress.GooglePlaces()
+    googleAPI = Locator.GooglePlaces()
 
-#try:
-#    (loc_x, loc_y) = wigleLocation.getCoordinates(testID)
-#except:
-#    (loc_x, loc_y) = temp.get_coordinates(testID)
+    try:
+        (loc_x, loc_y) = WigleLocation.getCoordinates(bssid)
+    except:
+        (loc_x, loc_y) = googleAPI.get_coordinates(bssid)
 
-loc_x, loc_y = 37.54036713, -121.94658661
-zillowAPI = locateAddress.ZillowAPI(loc_x, loc_y)
+    loc_x, loc_y = 42.3379368, -71.6097833
 
-if(zillowAPI.isHouse()):
-    data = reverseAddressLookup.sendRequest(googleAPI.get_address(loc_x, loc_y))
+    zillowAPI = Locator.ZillowAPI(loc_x, loc_y)
 
-    for resident in data["current_residents"]:
-        for key, val in resident.items():
-            try:
-                print(key + ": " + val)
-            except:
-                print(key + ": ")
-                if(key == "associated_people"):
-                    print([person["relation"] + ": " + person["name"] for person in val])
-                if(key == "historical_addresses"):
-                    print(["%s, %s %s %s, %s" %(address["street_line_1"], address["city"], address["state_code"], address["postal_code"], address["country_code"]) for address in val])
-        print()
+    if(zillowAPI.isHouse()):
+        data = ReverseAddressLookup.sendRequest(googleAPI.get_address(loc_x, loc_y))
+
+        for resident in data["current_residents"]:
+            for key, val in resident.items():
+                try:
+                    print(key + ": " + val)
+                except:
+                    print(key + ": ")
+                    if(key == "associated_people"):
+                        print([person["relation"] + ": " + person["name"] for person in val])
+                    if(key == "historical_addresses"):
+                        print(["%s, %s %s %s, %s" %(address["street_line_1"], address["city"], address["state_code"], address["postal_code"], address["country_code"]) for address in val])
+            print()
+
+if(len(sys.argv) > 2):
+    print("Usage: ./AWSY <bssid>")
+else:
+    run(sys.argv[1])
+
+
