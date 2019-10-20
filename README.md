@@ -4,7 +4,7 @@ Are.We.Secure.Yet is a framework that aims to mine data from BSSIDs.
 
 ## Overview
 
-AWSY aims to reveal the insecurity of public space. It uses captured BSSIDs to effectively pass through multiple APIs and mine potentially personal information. It is written in Python with supporting modules in Golang. 
+AWSY aims to reveal the insecurity of public space. It uses captured BSSIDs and multiple APIs to effectively mine potentially personal information. It is written in Python with supporting modules in Golang. 
 
 ## How it works
 
