@@ -1,8 +1,9 @@
+HackUMass VII Best Security Hack winning project!
+
 # AWSY (Are We Secure Yet?)
 <p align="center">  
   <b>AWSY collects and mines data from BSSIDs to reveal what we have forgotten about WiFi security.</b>
-  
-  <b>HackUMass VII Best Security Hack<\b>
+
   <img src="https://raw.githubusercontent.com/VBQL/AWSY/master/logo.png" alt="Although WiFi is disconnected, you still transmit valueable information">
 </p>
 
