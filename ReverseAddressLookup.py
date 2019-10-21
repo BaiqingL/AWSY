@@ -1,7 +1,7 @@
 import requests
 import json
 
-ekataKey = "api_key"
+ekataKey = "5cec97f82b294b0cb0de3c11ddc9a76a"
 
 def sendRequest(address):
     """

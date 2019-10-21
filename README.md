@@ -1,4 +1,4 @@
-HackUMass VII Best Security Hack winning project!
+**Winner of HackUMass VII Best Security Hack!**
 
 # AWSY (Are We Secure Yet?)
 <p align="center">  
