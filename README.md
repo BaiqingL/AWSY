@@ -1,4 +1,4 @@
-<p align="center"><b>-- Winner of HackUMass VII Best Security Hack! --</b></p>
+<p align="center"><b>-- Winner of HackUMass VII Best Security Hack/Wolfram Alpha Award! --</b></p>
 
 # AWSY (Are We Secure Yet?)
 <p align="center">  
