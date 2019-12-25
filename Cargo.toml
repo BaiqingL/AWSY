@@ -1,0 +1,13 @@
+[package]
+name = "are_we_secure_yet"
+version = "0.1.0"
+authors = ["Andy L"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = "0.9.24"
+serde = "1.0.104"
+serde_derive = "1.0.104"
+serde_json = "1.0.44"
